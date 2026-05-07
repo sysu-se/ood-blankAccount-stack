@@ -1,7 +1,9 @@
 <script>
 	import { BOX_SIZE } from '@sudoku/constants';
 	import { gamePaused } from '@sudoku/stores/game';
-	import { grid, userGrid, invalidCells } from '@sudoku/stores/grid';
+// 删掉：import { grid, userGrid, invalidCells } from '@sudoku/stores/grid';
+// 替换为：
+import { currentGrid as userGrid, cluesGrid as grid, invalidCells } from '@sudoku/stores/gameManager';
 	import { settings } from '@sudoku/stores/settings';
 	import { cursor } from '@sudoku/stores/cursor';
 	import { candidates } from '@sudoku/stores/candidates';
