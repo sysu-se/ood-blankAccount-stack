@@ -1,6 +1,8 @@
 <script>
 	import { difficulty as difficultyStore } from '@sudoku/stores/difficulty';
-	import { startNew, startCustom } from '@sudoku/game';
+	// 删掉：import { startNew, startCustom } from '@sudoku/game';
+// 替换为：
+import { gameManager } from '@sudoku/stores/gameManager';
 	import { validateSencode } from '@sudoku/sencode';
 	import { DIFFICULTIES } from '@sudoku/constants';
 
@@ -15,9 +17,9 @@
 
 	function handleStart() {
 		if (validateSencode(sencode)) {
-			startCustom(sencode);
+			gameManager.init(sencode);
 		} else {
-			startNew(difficulty);
+			gameManager.init(difficulty);
 		}
 
 		hideModal();

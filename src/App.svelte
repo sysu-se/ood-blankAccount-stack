@@ -3,7 +3,9 @@
 	import { validateSencode } from '@sudoku/sencode';
 	import game from '@sudoku/game';
 	import { modal } from '@sudoku/stores/modal';
-	import { gameWon } from '@sudoku/stores/game';
+// 删掉旧的：import { gameWon } from '@sudoku/stores/game';
+// 替换为：
+import { isGameWon as won } from '@sudoku/stores/gameManager';
 	import Board from './components/Board/index.svelte';
 	import Controls from './components/Controls/index.svelte';
 	import Header from './components/Header/index.svelte';

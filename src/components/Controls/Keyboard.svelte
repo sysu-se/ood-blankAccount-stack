@@ -1,5 +1,5 @@
 <script>
-	import { userGrid } from '@sudoku/stores/grid';
+import { gameManager } from '@sudoku/stores/gameManager'; // 引入管理器
 	import { cursor } from '@sudoku/stores/cursor';
 	import { notes } from '@sudoku/stores/notes';
 	import { candidates } from '@sudoku/stores/candidates';
@@ -7,25 +7,21 @@
 	// TODO: Improve keyboardDisabled
 	import { keyboardDisabled } from '@sudoku/stores/keyboard';
 
-	function handleKeyButton(num) {
-		if (!$keyboardDisabled) {
-			if ($notes) {
-				if (num === 0) {
-					candidates.clear($cursor);
-				} else {
-					candidates.add($cursor, num);
-				}
-				userGrid.set($cursor, 0);
-			} else {
-				if ($candidates.hasOwnProperty($cursor.x + ',' + $cursor.y)) {
-					candidates.clear($cursor);
-				}
-
-				userGrid.set($cursor, num);
-			}
-		}
-	}
-
+function handleKeyButton(num) {
+    if (!$keyboardDisabled) {
+        if ($notes) {
+            // 记笔记只影响候选数缓存，坚决不入库 gameManager
+            if (num === 0) candidates.clear($cursor);
+            else candidates.add($cursor, num);
+        } else {
+            // 正式下棋走 Game 领域
+            if ($candidates.hasOwnProperty($cursor.x + ',' + $cursor.y)) {
+                candidates.clear($cursor);
+            }
+            gameManager.guess({ row: $cursor.y, col: $cursor.x, value: num });
+        }
+    }
+}
 	function handleKey(e) {
 		switch (e.key || e.keyCode) {
 			case 'ArrowUp':
