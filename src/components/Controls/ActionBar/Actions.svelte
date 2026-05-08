@@ -13,8 +13,8 @@
 
     function handleHint() {
         if (hintsAvailable) {
-            candidates.clear($cursor);
-            gameManager.applyHint();
+            candidates.clear($cursor); // 先清空当前格子的旧笔记
+            gameManager.applyHint($cursor); // <--- 将光标位置传给 manager
         }
     }
 </script>
