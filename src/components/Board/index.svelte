@@ -25,8 +25,10 @@ import { currentGrid as userGrid, cluesGrid as grid, invalidCells } from '@sudok
 	}
 
 	function getValueAtCursor(gridStore, cursorStore) {
-		if (cursorStore.x === null && cursorStore.y === null) return null;
-
+		if (cursorStore.x === null || cursorStore.y === null) return null;
+		
+		if (!gridStore || !gridStore[cursorStore.y]) return null;
+		
 		return gridStore[cursorStore.y][cursorStore.x];
 	}
 </script>
