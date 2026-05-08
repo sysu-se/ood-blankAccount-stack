@@ -3,20 +3,19 @@
 	import { validateSencode } from '@sudoku/sencode';
 	import game from '@sudoku/game';
 	import { modal } from '@sudoku/stores/modal';
-// 删掉旧的：import { gameWon } from '@sudoku/stores/game';
-// 替换为：
-import { isGameWon as won } from '@sudoku/stores/gameManager';
+
+	// 引入 gameManager 里的 isGameWon，并重命名为 won
+	import { isGameWon as won } from '@sudoku/stores/gameManager';
+	
 	import Board from './components/Board/index.svelte';
 	import Controls from './components/Controls/index.svelte';
 	import Header from './components/Header/index.svelte';
 	import Modal from './components/Modal/index.svelte';
 
-	gameWon.subscribe(won => {
-		if (won) {
-			game.pause();
-			modal.show('gameover');
-		}
-	});
+	$: if ($won) {
+		game.pause();
+		modal.show('gameover');
+	}
 
 	onMount(() => {
 		let hash = location.hash;
